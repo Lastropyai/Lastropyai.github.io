@@ -45,6 +45,7 @@ $('#best').textContent=best;
 $('#openHelp').onclick = () => $('#helpModal').style.display = 'flex';
 $('#closeHelp').onclick = () => $('#helpModal').style.display = 'none';
 
+const sfxStart = new Audio('start.mp3'); // <-- Penambahan Audio Start
 const sfxM = new Audio('sfx_m.mp3');
 const sfxHit = new Audio('sfx_hit.mp3');
 const sfxG = new Audio('sfx_g.mp3');
@@ -201,6 +202,10 @@ function finish(){
 }
 
 function start(){
+  // Putar efek suara start saat tombol mulai diktekan
+  sfxStart.currentTime = 0;
+  sfxStart.play().catch(e => {});
+
   clearInterval(clockTimer);
   clearTimeout(gameInterval);
   hideAll();
