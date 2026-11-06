@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#17452d"><title>Keplak-Si-Wowok!</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:16px 12px 28px;display:flex;justify-content:center;background:linear-gradient(#b8e8fa 0 36%,#8fce64 36%);font-family:system-ui,sans-serif;color:#173321}.game{width:min(680px,100%);text-align:center;position:relative}header{padding:14px 12px;background:#17452d;color:white;border:4px solid #0d2d1c;border-radius:22px;box-shadow:0 7px #0d2d1c;position:relative}h1{margin:0;color:#ffdc58;font-size:clamp(24px,6vw,40px);text-shadow:3px 3px #713c20}.stats{display:flex;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap}.stat{min-width:75px;padding:5px 8px;background:#0c2c1b;border:2px solid #4c8051;border-radius:12px}.stat span{display:block;font-size:9px;color:#b9d9bf}.stat strong{font-size:20px;color:white}.help-btn{position:absolute;top:12px;right:14px;background:#ffcf45;border:2px solid #713c20;color:#482c11;width:34px;height:34px;border-radius:50%;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 3px #a96a25;display:flex;align-items:center;justify-content:center}.field{margin:19px auto 14px;padding:18px 10px 22px;border:5px solid #754923;border-radius:24px;background:linear-gradient(#a9df6d,#68b448);box-shadow:inset 0 5px #d6f3a2,0 7px #4e321e;overflow:hidden}.holes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.hole{height:clamp(105px,25vw,150px);border:0;padding:0;position:relative;background:none;overflow:hidden;border-radius:50%;touch-action:manipulation}.dirt{position:absolute;left:4%;right:4%;bottom:5%;height:35%;border-radius:50%;background:radial-gradient(ellipse at 50% 25%,#81502b,#3a2418 72%);box-shadow:inset 0 7px #a16b36,0 4px #4b2e1b}.face{position:absolute;left:50%;bottom:17%;width:76%;height:95%;transform:translate(-50%,110%) scale(.8);transition:transform .13s;pointer-events:none;filter:drop-shadow(0 4px 2px #18331d66);object-fit:contain}.hole.up .face{transform:translate(-50%,0) scale(1)}.hole.bonk .face{transform:translate(-50%,-8%) rotate(-13deg) scale(.92)}.float-text{position:absolute;left:50%;top:30%;transform:translate(-50%,0);font-weight:900;font-size:20px;pointer-events:none;animation:floatUp .6s ease-out forwards;z-index:10;text-shadow:2px 2px 0 #fff}.float-text.positive{color:#2e7d32}.float-text.negative{color:#c62828}.float-text.bonus{color:#f57f17}@keyframes floatUp{0%{opacity:1;transform:translate(-50%,0) scale(0.8)}100%{opacity:0;transform:translate(-50%,-45px) scale(1.2)}}.controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.action{border:0;border-radius:13px;padding:12px 21px;font-weight:850;font-size:15px;background:#ffcf45;color:#482c11;box-shadow:0 4px #a96a25}.alt{background:white;color:#21442b;box-shadow:0 4px #9dbd9d}#message{min-height:25px;margin:13px 0 4px;font-weight:800;color:#1c4829}.foot{font-size:11px;color:#315b36;margin-top:10px}.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:100;padding:15px}.modal-content{background:#fff;padding:20px;border-radius:18px;width:min(420px,100%);text-align:center;border:4px solid #17452d;color:#173321;box-shadow:0 8px 20px rgba(0,0,0,0.3)}.modal-content h3{margin-top:0;color:#17452d}.modal-content p{font-size:13px;text-align:left;line-height:1.5}.close-btn{background:#ffcf45;border:0;padding:8px 18px;font-weight:800;border-radius:10px;cursor:pointer;margin-top:10px;color:#482c11;box-shadow:0 3px #a96a25}@media(max-width:380px){.holes{gap:7px}.hole{height:100px}}
+</style></head>
+<body>
+<main class="game">
+<header>
+  <button class="help-btn" id="openHelp">?</button>
+  <h1>KEPLAK-SI-WOWOK</h1>
+  <div class="stats">
+    <div class="stat"><span>SKOR</span><strong id="score">0</strong></div>
+    <div class="stat"><span>WAKTU</span><strong id="time">45</strong></div>
+    <div class="stat"><span>LEVEL</span><strong id="level">1</strong></div>
+    <div class="stat"><span>REKOR</span><strong id="best">0</strong></div>
+  </div>
+</header>
+<section class="field"><div class="holes" id="holes"></div></section>
+<div class="controls">
+  <button class="action" id="start">▶ MULAI MAIN</button>
+  <button class="action alt" id="reset">↻ RESET</button>
+</div>
+<p id="message">Tekan MULAI MAIN untuk memulai!</p>
+<p class="foot">Game satire ringan • Main santai 😄</p>
+</main>
+<div class="modal" id="helpModal">
+  <div class="modal-content">
+    <h3>Cara Bermain 📖</h3>
+    <p>
+      🎯 <b>Target Utama:</b> Ketuk kepala Si-Wowok untuk mendapat +10 poin.<br>
+      ❌ <b>Jebakan:</b> Jangan pukul Mas Amba! Jika kena, skor dikurangi -15 poin.<br>
+      ⏰ <b>Power-Up Waktu:</b> Ketuk item bonus waktu untuk mendapatkan ekstra +5 detik durasi bermain!<br>
+      📈 <b>Sistem Level:</b> Kesulitan meningkat perlahan seiring bertambahnya skor agar bisa mencapai level tinggi!
+    </p>
+    <button class="close-btn" id="closeHelp">TUTUP</button>
+  </div>
+</div>
+<script>
+const $=s=>document.querySelector(s),holesEl=$('#holes');
+let score=0, time=45, running=false, activeHoles=[], gameInterval, clockTimer, best=+(localStorage.wapBest||0);
+$('#best').textContent=best;
+$('#openHelp').onclick = () => $('#helpModal').style.display = 'flex';
+$('#closeHelp').onclick = () => $('#helpModal').style.display = 'none';
+
+const sfxM = new Audio('sfx_m.mp3');
+const sfxHit = new Audio('sfx_hit.mp3');
+const sfxG = new Audio('sfx_g.mp3');
+const sfxTrap = new Audio('sfx_trap.mp3');
+const sfxPower = new Audio('sfx_power.mp3');
+const sfxMTrap = new Audio('sfx_m_trap.mp3');
+const sfxMPower = new Audio('sfx_m_power.mp3');
+
+for(let i=0; i<9; i++){
+  let h=document.createElement('button');
+  h.className='hole';
+  h.innerHTML='<span class="dirt"></span><img class="face" src="wowok_m1.png" alt="Karakter">';
+  h.addEventListener('pointerdown',()=>hit(i));
+  holesEl.append(h);
+}
+const holes=[...document.querySelectorAll('.hole')];
+
+function getLevel() {
+  if (score >= 250) return 3;
+  if (score >= 100) return 2;
+  return 1;
+}
+
+function hideAll(){
+  holes.forEach(h=>{
+    h.classList.remove('up','bonk');
+    const ft = h.querySelector('.float-text');
+    if(ft) ft.remove();
+  });
+  activeHoles=[];
+}
+
+function showFloatText(holeEl, text, className) {
+  const oldFt = holeEl.querySelector('.float-text');
+  if(oldFt) oldFt.remove();
+  let ft = document.createElement('span');
+  ft.className = `float-text ${className}`;
+  ft.textContent = text;
+  holeEl.append(ft);
+  setTimeout(() => ft.remove(), 600);
+}
+
+function spawnWave(){
+  if(!running) return;
+  hideAll();
+  
+  let currentLevel = getLevel();
+  $('#level').textContent = currentLevel;
+
+  let countToSpawn = 1;
+  if(currentLevel === 2) countToSpawn = Math.random() < 0.25 ? 2 : 1;
+  if(currentLevel === 3) countToSpawn = Math.random() < 0.45 ? 2 : 1;
+
+  let availableIndices = [0,1,2,3,4,5,6,7,8];
+  
+  for(let c=0; c<countToSpawn; c++){
+    if(availableIndices.length === 0) break;
+    let randIdx = Math.floor(Math.random() * availableIndices.length);
+    let n = availableIndices.splice(randIdx, 1)[0];
+    
+    activeHoles.push(n);
+    let imgEl = holes[n].querySelector('.face');
+    
+    let randType = Math.random();
+    if(currentLevel >= 2 && randType < 0.18) {
+      imgEl.dataset.type = 'trap';
+      imgEl.src = 'trap_m.png';
+      sfxMTrap.currentTime = 0;
+      sfxMTrap.play().catch(e => {});
+    } else if(randType >= 0.18 && randType < 0.30) {
+      imgEl.dataset.type = 'timeup';
+      imgEl.src = 'power_m.png';
+      sfxMPower.currentTime = 0;
+      sfxMPower.play().catch(e => {});
+    } else {
+      imgEl.dataset.type = 'normal';
+      imgEl.src = Math.random() < 0.5 ? 'wowok_m1.png' : 'wowok_m2.png';
+      sfxM.currentTime = 0;
+      sfxM.play().catch(e => {});
+    }
+
+    holes[n].classList.add('up');
+  }
+
+  let popDuration = Math.max(750, 1300 - (score * 1.2));
+  if(currentLevel === 2) popDuration = Math.max(650, 1150 - (score * 1.2));
+  if(currentLevel === 3) popDuration = Math.max(550, 1000 - (score * 1.2));
+
+  setTimeout(()=>{
+    if(!running) return;
+    activeHoles.forEach(n => holes[n].classList.remove('up'));
+    activeHoles = [];
+    let nextDelay = Math.max(600, 1100 - (score * 1.2));
+    gameInterval = setTimeout(spawnWave, nextDelay);
+  }, popDuration);
+}
+
+function hit(i){
+  if(!running || !holes[i].classList.contains('up')) return;
+  
+  let imgEl = holes[i].querySelector('.face');
+  let type = imgEl.dataset.type;
+  
+  holes[i].classList.remove('up');
+  holes[i].classList.add('bonk');
+
+  if(type === 'trap') {
+    score = Math.max(0, score - 15);
+    $('#score').textContent = score;
+    $('#message').textContent = 'Kena Jebakan! -15 Poin ❌';
+    imgEl.src = 'trap_g.png';
+    sfxTrap.currentTime = 0;
+    sfxTrap.play().catch(e => {});
+    showFloatText(holes[i], '-15', 'negative');
+  } else if(type === 'timeup') {
+    time += 5;
+    $('#time').textContent = time;
+    $('#message').textContent = 'Bonus +5 Detik! ⏰✨';
+    imgEl.src = 'power_g.png';
+    sfxPower.currentTime = 0;
+    sfxPower.play().catch(e => {});
+    showFloatText(holes[i], '+5s', 'bonus');
+  } else {
+    score += 10;
+    $('#score').textContent = score;
+    $('#message').textContent = 'Keplak Mantap! +10 Poin 🎯';
+    imgEl.src = imgEl.src.includes('wowok_m1.png') ? 'wowok_g1.png' : 'wowok_g2.png';
+    sfxHit.currentTime = 0;
+    sfxHit.play().catch(e => {});
+    sfxG.currentTime = 0;
+    sfxG.play().catch(e => {});
+    showFloatText(holes[i], '+10', 'positive');
+  }
+
+  activeHoles = activeHoles.filter(idx => idx !== i);
+  setTimeout(()=>holes[i].classList.remove('bonk'), 180);
+}
+
+function finish(){
+  running = false;
+  clearInterval(clockTimer);
+  clearTimeout(gameInterval);
+  hideAll();
+  
+  if(score > best){
+    best = score;
+    localStorage.wapBest = best;
+    $('#best').textContent = best;
+    $('#message').textContent = 'REKOR BARU! ' + score + ' poin! 🏆';
+  } else {
+    $('#message').textContent = 'Waktu habis! Skor: ' + score + '. Coba lagi!';
+  }
+  $('#start').textContent = '▶ MAIN LAGI';
+}
+
+function start(){
+  clearInterval(clockTimer);
+  clearTimeout(gameInterval);
+  hideAll();
+  
+  score = 0;
+  time = 45;
+  running = true;
+  
+  $('#score').textContent = 0;
+  $('#time').textContent = 45;
+  $('#level').textContent = 1;
+  $('#message').textContent = 'Gas! Keplak kepalanya!';
+  $('#start').textContent = '▶ SEDANG BERMAIN...';
+  
+  spawnWave();
+  
+  clockTimer = setInterval(()=>{
+    time--;
+    $('#time').textContent = time;
+    if(time <= 0) finish();
+  }, 1000);
+}
+
+$('#start').onclick = start;
+$('#reset').onclick = ()=>{
+  running = false;
+  clearInterval(clockTimer);
+  clearTimeout(gameInterval);
+  hideAll();
+  score = 0;
+  time = 45;
+  $('#score').textContent = 0;
+  $('#time').textContent = 45;
+  $('#level').textContent = 1;
+  $('#message').textContent = 'Siap? Tekan MULAI MAIN!';
+  $('#start').textContent = '▶ MULAI MAIN';
+};
+</script>
+</body>
+</html>
