@@ -49,9 +49,7 @@
   <div class="modal-content">
     <h3>Pengaturan Karakter ⚙️</h3>
     <p style="font-size:12px; margin-bottom:8px; text-align:center;">Pilih karakter yang boleh muncul (minimal 1):</p>
-    <div class="char-list" id="charListContainer">
-      <!-- Diisi otomatis via JS -->
-    </div>
+    <div class="char-list" id="charListContainer"></div>
     <button class="close-btn" id="closeSettings">SIMPAN</button>
   </div>
 </div>
@@ -61,15 +59,44 @@ const $=s=>document.querySelector(s),holesEl=$('#holes');
 let score=0, time=45, running=false, activeHoles=[], gameInterval, clockTimer, best=+(localStorage.wapBest||0);
 $('#best').textContent=best;
 
-// Modal Bantuan
 $('#openHelp').onclick = () => $('#helpModal').style.display = 'flex';
 $('#closeHelp').onclick = () => $('#helpModal').style.display = 'none';
 
-// Konfigurasi Karakter Utama (Bisa dicentang di Settings)
+// Konfigurasi Karakter (Wowok kini memiliki sfxM alternatif sfx_m2.mp3)
 let characters = [
-  { id: 'wowok', name: 'Si Wowok', imgM1: 'wowok_m1.png', imgM2: 'wowok_m2.png', imgG1: 'wowok_g1.png', imgG2: 'wowok_g2.png', sfxM: new Audio('sfx_m.mp3'), sfxG: new Audio('sfx_g.mp3'), active: true },
-  { id: 'buna', name: 'Buna', imgM1: 'buna_m.png', imgM2: 'buna_m.png', imgG1: 'buna_g.png', imgG2: 'buna_g.png', sfxM: new Audio('sfx_m_buna.mp3'), sfxG: new Audio('sfx_g_buna.mp3'), active: false },
-  { id: 'bahlil', name: 'Bahlil', imgM1: 'bahlil_m.png', imgM2: 'bahlil_m.png', imgG1: 'bahlil_g.png', imgG2: 'bahlil_g.png', sfxM: new Audio('sfx_m_bahlil.mp3'), sfxG: new Audio('sfx_g_bahlil.mp3'), active: false }
+  { 
+    id: 'wowok', 
+    name: 'Si Wowok', 
+    imgM1: 'wowok_m1.png', 
+    imgM2: 'wowok_m2.png', 
+    imgG1: 'wowok_g1.png', 
+    imgG2: 'wowok_g2.png', 
+    sfxMList: [new Audio('sfx_m.mp3'), new Audio('sfx_m2.mp3')], 
+    sfxG: new Audio('sfx_g.mp3'), 
+    active: true 
+  },
+  { 
+    id: 'buna', 
+    name: 'Buna', 
+    imgM1: 'buna_m.png', 
+    imgM2: 'buna_m.png', 
+    imgG1: 'buna_g.png', 
+    imgG2: 'buna_g.png', 
+    sfxMList: [new Audio('sfx_m_buna.mp3')], 
+    sfxG: new Audio('sfx_g_buna.mp3'), 
+    active: false 
+  },
+  { 
+    id: 'bahlil', 
+    name: 'Bahlil', 
+    imgM1: 'bahlil_m.png', 
+    imgM2: 'bahlil_m.png', 
+    imgG1: 'bahlil_g.png', 
+    imgG2: 'bahlil_g.png', 
+    sfxMList: [new Audio('sfx_m_bahlil.mp3')], 
+    sfxG: new Audio('sfx_g_bahlil.mp3'), 
+    active: false 
+  }
 ];
 
 // Audio Pendukung Lainnya
@@ -80,7 +107,6 @@ const sfxPower = new Audio('sfx_power.mp3');
 const sfxMTrap = new Audio('sfx_m_trap.mp3');
 const sfxMPower = new Audio('sfx_m_power.mp3');
 
-// Render Daftar Karakter ke Modal Settings
 function renderSettings() {
   const container = $('#charListContainer');
   container.innerHTML = '';
@@ -98,14 +124,12 @@ function renderSettings() {
   });
 }
 
-// Buka & Tutup Settings
 $('#openSettings').onclick = () => {
   renderSettings();
   $('#settingsModal').style.display = 'flex';
 };
 
 $('#closeSettings').onclick = () => {
-  // Validasi: Minimal 1 karakter harus aktif
   const checkboxes = document.querySelectorAll('#charListContainer input[type="checkbox"]');
   let checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
   
@@ -114,7 +138,6 @@ $('#closeSettings').onclick = () => {
     return;
   }
   
-  // Simpan status centang ke array characters
   checkboxes.forEach(cb => {
     let charId = cb.dataset.id;
     let targetChar = characters.find(c => c.id === charId);
@@ -193,19 +216,19 @@ function spawnWave(){
       sfxMPower.currentTime = 0;
       sfxMPower.play().catch(e => {});
     } else {
-      // Ambil hanya karakter yang aktif dicentang di settings
       let activeChars = characters.filter(c => c.active);
       let chosenChar = activeChars[Math.floor(Math.random() * activeChars.length)];
       
       imgEl.dataset.type = 'normal';
       imgEl.dataset.charId = chosenChar.id;
       
-      // Pilih varian gambar 1 atau 2 (jika tersedia)
       let useAlt = Math.random() < 0.5;
       imgEl.src = useAlt ? chosenChar.imgM2 : chosenChar.imgM1;
       
-      chosenChar.sfxM.currentTime = 0;
-      chosenChar.sfxM.play().catch(e => {});
+      // Pilih efek suara kemunculan secara acak dari daftar sfxMList karakter terkait
+      let randomSfx = chosenChar.sfxMList[Math.floor(Math.random() * chosenChar.sfxMList.length)];
+      randomSfx.currentTime = 0;
+      randomSfx.play().catch(e => {});
     }
 
     holes[n].classList.add('up');
@@ -325,7 +348,7 @@ $('#reset').onclick = ()=>{
   time = 45;
   $('#score').textContent = 0;
   $('#time').textContent = 45;
-  $('#level').textContent = 1;
+  $('#level').textContent = '1';
   $('#message').textContent = 'Siap? Tekan MULAI MAIN!';
   $('#start').textContent = '▶ MULAI MAIN';
 };
