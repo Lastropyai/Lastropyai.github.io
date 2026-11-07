@@ -4,12 +4,15 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#17452d"><title>Keplak-Si-Wowok!</title>
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:16px 12px 28px;display:flex;justify-content:center;background:linear-gradient(#b8e8fa 0 36%,#8fce64 36%);font-family:system-ui,sans-serif;color:#173321}.game{width:min(680px,100%);text-align:center;position:relative}header{padding:14px 12px;background:#17452d;color:white;border:4px solid #0d2d1c;border-radius:22px;box-shadow:0 7px #0d2d1c;position:relative}h1{margin:0;color:#ffdc58;font-size:clamp(24px,6vw,40px);text-shadow:3px 3px #713c20}.stats{display:flex;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap}.stat{min-width:75px;padding:5px 8px;background:#0c2c1b;border:2px solid #4c8051;border-radius:12px}.stat span{display:block;font-size:9px;color:#b9d9bf}.stat strong{font-size:20px;color:white}.help-btn{position:absolute;top:12px;right:14px;background:#ffcf45;border:2px solid #713c20;color:#482c11;width:34px;height:34px;border-radius:50%;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 3px #a96a25;display:flex;align-items:center;justify-content:center}.field{margin:19px auto 14px;padding:18px 10px 22px;border:5px solid #754923;border-radius:24px;background:linear-gradient(#a9df6d,#68b448);box-shadow:inset 0 5px #d6f3a2,0 7px #4e321e;overflow:hidden}.holes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.hole{height:clamp(105px,25vw,150px);border:0;padding:0;position:relative;background:none;overflow:hidden;border-radius:50%;touch-action:manipulation}.dirt{position:absolute;left:4%;right:4%;bottom:5%;height:35%;border-radius:50%;background:radial-gradient(ellipse at 50% 25%,#81502b,#3a2418 72%);box-shadow:inset 0 7px #a16b36,0 4px #4b2e1b}.face{position:absolute;left:50%;bottom:17%;width:76%;height:95%;transform:translate(-50%,110%) scale(.8);transition:transform .13s;pointer-events:none;filter:drop-shadow(0 4px 2px #18331d66);object-fit:contain}.hole.up .face{transform:translate(-50%,0) scale(1)}.hole.bonk .face{transform:translate(-50%,-8%) rotate(-13deg) scale(.92)}.float-text{position:absolute;left:50%;top:30%;transform:translate(-50%,0);font-weight:900;font-size:20px;pointer-events:none;animation:floatUp .6s ease-out forwards;z-index:10;text-shadow:2px 2px 0 #fff}.float-text.positive{color:#2e7d32}.float-text.negative{color:#c62828}.float-text.bonus{color:#f57f17}@keyframes floatUp{0%{opacity:1;transform:translate(-50%,0) scale(0.8)}100%{opacity:0;transform:translate(-50%,-45px) scale(1.2)}}.controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.action{border:0;border-radius:13px;padding:12px 21px;font-weight:850;font-size:15px;background:#ffcf45;color:#482c11;box-shadow:0 4px #a96a25}.alt{background:white;color:#21442b;box-shadow:0 4px #9dbd9d}#message{min-height:25px;margin:13px 0 4px;font-weight:800;color:#1c4829}.foot{font-size:11px;color:#315b36;margin-top:10px}.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:100;padding:15px}.modal-content{background:#fff;padding:20px;border-radius:18px;width:min(420px,100%);text-align:center;border:4px solid #17452d;color:#173321;box-shadow:0 8px 20px rgba(0,0,0,0.3)}.modal-content h3{margin-top:0;color:#17452d}.modal-content p{font-size:13px;text-align:left;line-height:1.5}.close-btn{background:#ffcf45;border:0;padding:8px 18px;font-weight:800;border-radius:10px;cursor:pointer;margin-top:10px;color:#482c11;box-shadow:0 3px #a96a25}@media(max-width:380px){.holes{gap:7px}.hole{height:100px}}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:16px 12px 28px;display:flex;justify-content:center;background:linear-gradient(#b8e8fa 0 36%,#8fce64 36%);font-family:system-ui,sans-serif;color:#173321}.game{width:min(680px,100%);text-align:center;position:relative}header{padding:14px 12px;background:#17452d;color:white;border:4px solid #0d2d1c;border-radius:22px;box-shadow:0 7px #0d2d1c;position:relative}h1{margin:0;color:#ffdc58;font-size:clamp(24px,6vw,40px);text-shadow:3px 3px #713c20}.stats{display:flex;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap}.stat{min-width:75px;padding:5px 8px;background:#0c2c1b;border:2px solid #4c8051;border-radius:12px}.stat span{display:block;font-size:9px;color:#b9d9bf}.stat strong{font-size:20px;color:white}.header-btns{position:absolute;top:12px;right:14px;display:flex;gap:6px}.icon-btn{background:#ffcf45;border:2px solid #713c20;color:#482c11;width:34px;height:34px;border-radius:50%;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 3px #a96a25;display:flex;align-items:center;justify-content:center}.field{margin:19px auto 14px;padding:18px 10px 22px;border:5px solid #754923;border-radius:24px;background:linear-gradient(#a9df6d,#68b448);box-shadow:inset 0 5px #d6f3a2,0 7px #4e321e;overflow:hidden}.holes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.hole{height:clamp(105px,25vw,150px);border:0;padding:0;position:relative;background:none;overflow:hidden;border-radius:50%;touch-action:manipulation}.dirt{position:absolute;left:4%;right:4%;bottom:5%;height:35%;border-radius:50%;background:radial-gradient(ellipse at 50% 25%,#81502b,#3a2418 72%);box-shadow:inset 0 7px #a16b36,0 4px #4b2e1b}.face{position:absolute;left:50%;bottom:17%;width:76%;height:95%;transform:translate(-50%,110%) scale(.8);transition:transform .13s;pointer-events:none;filter:drop-shadow(0 4px 2px #18331d66);object-fit:contain}.hole.up .face{transform:translate(-50%,0) scale(1)}.hole.bonk .face{transform:translate(-50%,-8%) rotate(-13deg) scale(.92)}.float-text{position:absolute;left:50%;top:30%;transform:translate(-50%,0);font-weight:900;font-size:20px;pointer-events:none;animation:floatUp .6s ease-out forwards;z-index:10;text-shadow:2px 2px 0 #fff}.float-text.positive{color:#2e7d32}.float-text.negative{color:#c62828}.float-text.bonus{color:#f57f17}@keyframes floatUp{0%{opacity:1;transform:translate(-50%,0) scale(0.8)}100%{opacity:0;transform:translate(-50%,-45px) scale(1.2)}}.controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.action{border:0;border-radius:13px;padding:12px 21px;font-weight:850;font-size:15px;background:#ffcf45;color:#482c11;box-shadow:0 4px #a96a25}.alt{background:white;color:#21442b;box-shadow:0 4px #9dbd9d}#message{min-height:25px;margin:13px 0 4px;font-weight:800;color:#1c4829}.foot{font-size:11px;color:#315b36;margin-top:10px}.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:100;padding:15px}.modal-content{background:#fff;padding:20px;border-radius:18px;width:min(420px,100%);text-align:center;border:4px solid #17452d;color:#173321;box-shadow:0 8px 20px rgba(0,0,0,0.3)}.modal-content h3{margin-top:0;color:#17452d}.modal-content p{font-size:13px;text-align:left;line-height:1.5}.close-btn{background:#ffcf45;border:0;padding:8px 18px;font-weight:800;border-radius:10px;cursor:pointer;margin-top:10px;color:#482c11;box-shadow:0 3px #a96a25}/* Pengaturan Karakter */.char-list{display:flex;flex-direction:column;gap:8px;margin:12px 0;max-height:220px;overflow-y:auto;text-align:left}.char-item{display:flex;align-items:center;justify-content:space-between;background:#f0f7f2;padding:8px 12px;border-radius:10px;border:2px solid #cce3d4}.char-info{display:flex;align-items:center;gap:10px}.char-info img{width:36px;height:36px;object-fit:contain;background:#fff;border-radius:6px;border:1px solid #b2d7bc}.char-info span{font-weight:700;font-size:14px;color:#173321}.char-item input[type="checkbox"]{width:20px;height:20px;cursor:pointer}@media(max-width:380px){.holes{gap:7px}.hole{height:100px}}
 </style></head>
 <body>
 <main class="game">
 <header>
-  <button class="help-btn" id="openHelp">?</button>
+  <div class="header-btns">
+    <button class="icon-btn" id="openSettings" title="Pengaturan Karakter">⚙</button>
+    <button class="icon-btn" id="openHelp">?</button>
+  </div>
   <h1>KEPLAK-SI-WOWOK</h1>
   <div class="stats">
     <div class="stat"><span>SKOR</span><strong id="score">0</strong></div>
@@ -26,33 +29,100 @@
 <p id="message">Tekan MULAI MAIN untuk memulai!</p>
 <p class="foot">Game satire ringan • Main santai 😄</p>
 </main>
+
+<!-- Modal Help -->
 <div class="modal" id="helpModal">
   <div class="modal-content">
     <h3>Cara Bermain 📖</h3>
     <p>
-      🎯 <b>Target Utama:</b> Ketuk kepala Si-Wowok untuk mendapat +10 poin.<br>
+      🎯 <b>Target Utama:</b> Ketuk kepala karakter yang muncul untuk mendapat +10 poin.<br>
       ❌ <b>Jebakan:</b> Jangan pukul Mas Amba! Jika kena, skor dikurangi -15 poin.<br>
       ⏰ <b>Power-Up Waktu:</b> Ketuk item bonus waktu untuk mendapatkan ekstra +5 detik durasi bermain!<br>
-      📈 <b>Sistem Level:</b> Kesulitan meningkat perlahan seiring bertambahnya skor agar bisa mencapai level tinggi!
+      ⚙️ <b>Pengaturan:</b> Gunakan tombol roda gigi untuk memilih karakter mana saja yang aktif muncul.
     </p>
     <button class="close-btn" id="closeHelp">TUTUP</button>
   </div>
 </div>
+
+<!-- Modal Settings Karakter -->
+<div class="modal" id="settingsModal">
+  <div class="modal-content">
+    <h3>Pengaturan Karakter ⚙️</h3>
+    <p style="font-size:12px; margin-bottom:8px; text-align:center;">Pilih karakter yang boleh muncul (minimal 1):</p>
+    <div class="char-list" id="charListContainer">
+      <!-- Diisi otomatis via JS -->
+    </div>
+    <button class="close-btn" id="closeSettings">SIMPAN</button>
+  </div>
+</div>
+
 <script>
 const $=s=>document.querySelector(s),holesEl=$('#holes');
 let score=0, time=45, running=false, activeHoles=[], gameInterval, clockTimer, best=+(localStorage.wapBest||0);
 $('#best').textContent=best;
+
+// Modal Bantuan
 $('#openHelp').onclick = () => $('#helpModal').style.display = 'flex';
 $('#closeHelp').onclick = () => $('#helpModal').style.display = 'none';
 
-const sfxStart = new Audio('start.mp3'); // <-- Penambahan Audio Start
-const sfxM = new Audio('sfx_m.mp3');
+// Konfigurasi Karakter Utama (Bisa dicentang di Settings)
+let characters = [
+  { id: 'wowok', name: 'Si Wowok', imgM1: 'wowok_m1.png', imgM2: 'wowok_m2.png', imgG1: 'wowok_g1.png', imgG2: 'wowok_g2.png', sfxM: new Audio('sfx_m.mp3'), sfxG: new Audio('sfx_g.mp3'), active: true },
+  { id: 'buna', name: 'Buna', imgM1: 'buna_m.png', imgM2: 'buna_m.png', imgG1: 'buna_g.png', imgG2: 'buna_g.png', sfxM: new Audio('sfx_m_buna.mp3'), sfxG: new Audio('sfx_g_buna.mp3'), active: false },
+  { id: 'bahlil', name: 'Bahlil', imgM1: 'bahlil_m.png', imgM2: 'bahlil_m.png', imgG1: 'bahlil_g.png', imgG2: 'bahlil_g.png', sfxM: new Audio('sfx_m_bahlil.mp3'), sfxG: new Audio('sfx_g_bahlil.mp3'), active: false }
+];
+
+// Audio Pendukung Lainnya
+const sfxStart = new Audio('start.mp3');
 const sfxHit = new Audio('sfx_hit.mp3');
-const sfxG = new Audio('sfx_g.mp3');
 const sfxTrap = new Audio('sfx_trap.mp3');
 const sfxPower = new Audio('sfx_power.mp3');
 const sfxMTrap = new Audio('sfx_m_trap.mp3');
 const sfxMPower = new Audio('sfx_m_power.mp3');
+
+// Render Daftar Karakter ke Modal Settings
+function renderSettings() {
+  const container = $('#charListContainer');
+  container.innerHTML = '';
+  characters.forEach(char => {
+    let div = document.createElement('div');
+    div.className = 'char-item';
+    div.innerHTML = `
+      <div class="char-info">
+        <img src="${char.imgM1}" alt="${char.name}">
+        <span>${char.name}</span>
+      </div>
+      <input type="checkbox" data-id="${char.id}" ${char.active ? 'checked' : ''}>
+    `;
+    container.append(div);
+  });
+}
+
+// Buka & Tutup Settings
+$('#openSettings').onclick = () => {
+  renderSettings();
+  $('#settingsModal').style.display = 'flex';
+};
+
+$('#closeSettings').onclick = () => {
+  // Validasi: Minimal 1 karakter harus aktif
+  const checkboxes = document.querySelectorAll('#charListContainer input[type="checkbox"]');
+  let checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+  
+  if (checkedCount === 0) {
+    alert('Minimal harus ada 1 karakter yang dicentang!');
+    return;
+  }
+  
+  // Simpan status centang ke array characters
+  checkboxes.forEach(cb => {
+    let charId = cb.dataset.id;
+    let targetChar = characters.find(c => c.id === charId);
+    if(targetChar) targetChar.active = cb.checked;
+  });
+  
+  $('#settingsModal').style.display = 'none';
+};
 
 for(let i=0; i<9; i++){
   let h=document.createElement('button');
@@ -112,19 +182,30 @@ function spawnWave(){
     let randType = Math.random();
     if(currentLevel >= 2 && randType < 0.18) {
       imgEl.dataset.type = 'trap';
+      imgEl.dataset.charId = '';
       imgEl.src = 'trap_m.png';
       sfxMTrap.currentTime = 0;
       sfxMTrap.play().catch(e => {});
     } else if(randType >= 0.18 && randType < 0.30) {
       imgEl.dataset.type = 'timeup';
+      imgEl.dataset.charId = '';
       imgEl.src = 'power_m.png';
       sfxMPower.currentTime = 0;
       sfxMPower.play().catch(e => {});
     } else {
+      // Ambil hanya karakter yang aktif dicentang di settings
+      let activeChars = characters.filter(c => c.active);
+      let chosenChar = activeChars[Math.floor(Math.random() * activeChars.length)];
+      
       imgEl.dataset.type = 'normal';
-      imgEl.src = Math.random() < 0.5 ? 'wowok_m1.png' : 'wowok_m2.png';
-      sfxM.currentTime = 0;
-      sfxM.play().catch(e => {});
+      imgEl.dataset.charId = chosenChar.id;
+      
+      // Pilih varian gambar 1 atau 2 (jika tersedia)
+      let useAlt = Math.random() < 0.5;
+      imgEl.src = useAlt ? chosenChar.imgM2 : chosenChar.imgM1;
+      
+      chosenChar.sfxM.currentTime = 0;
+      chosenChar.sfxM.play().catch(e => {});
     }
 
     holes[n].classList.add('up');
@@ -148,6 +229,7 @@ function hit(i){
   
   let imgEl = holes[i].querySelector('.face');
   let type = imgEl.dataset.type;
+  let charId = imgEl.dataset.charId;
   
   holes[i].classList.remove('up');
   holes[i].classList.add('bonk');
@@ -172,11 +254,16 @@ function hit(i){
     score += 10;
     $('#score').textContent = score;
     $('#message').textContent = 'Keplak Mantap! +10 Poin 🎯';
-    imgEl.src = imgEl.src.includes('wowok_m1.png') ? 'wowok_g1.png' : 'wowok_g2.png';
+    
+    let matchedChar = characters.find(c => c.id === charId);
+    if(matchedChar) {
+      imgEl.src = imgEl.src.includes(matchedChar.imgM2) ? matchedChar.imgG2 : matchedChar.imgG1;
+      matchedChar.sfxG.currentTime = 0;
+      matchedChar.sfxG.play().catch(e => {});
+    }
+    
     sfxHit.currentTime = 0;
     sfxHit.play().catch(e => {});
-    sfxG.currentTime = 0;
-    sfxG.play().catch(e => {});
     showFloatText(holes[i], '+10', 'positive');
   }
 
@@ -202,7 +289,6 @@ function finish(){
 }
 
 function start(){
-  // Putar efek suara start saat tombol mulai diktekan
   sfxStart.currentTime = 0;
   sfxStart.play().catch(e => {});
 
